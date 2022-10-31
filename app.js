@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+const cors = require('cors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -14,7 +15,15 @@ var chapterRouter = require('./routes/chapter');
 var genresRouter = require('./routes/genres')
 
 var app = express();
+var corsOptions = function(req, res, next){ 
+  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 
+  'Content-Type, Authorization, Content-Length, X-Requested-With');
+   next();
+}
 
+app.use(corsOptions);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
